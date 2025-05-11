@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Bank | Moon Coin переводы</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #e2e2e2;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .transfer-container {
+            width: 90%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .transfer-title {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 20px;
+            color: #a594f9;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #b8b8b8;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #6a11cb;
+            background: rgba(106, 17, 203, 0.1);
+        }
+
+        .transfer-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .transfer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .moon-coin {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 5s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">M</div>
+            <div class="logo-text">MOON BANK</div>
+        </div>
+    </div>
+
+    <div class="transfer-container">
+        <div class="transfer-title">Moon Coin Transfer</div>
+        <div class="input-group">
+            <label for="recipient">адрес кошелька</label>
+            <input type="text" id="recipient" placeholder="Enter Moon Coin address">
+        </div>
+        <div class="input-group">
+            <label for="amount">количество (MC)</label>
+            <input type="number" id="amount" placeholder="0.00">
+        </div>
+        <button class="transfer-btn">перевести Moon Coins</button>
+    </div>
+
+    <script>
+        // Create floating moon coins in background
+        function createMoonCoins() {
+            const coin = document.createElement('div');
+            coin.className = 'moon-coin';
+            
+            // Random position
+            coin.style.left = Math.random() * 100 + 'vw';
+            coin.style.top = Math.random() * 100 + 'vh';
+            
+            // Random size
+            const size = Math.random() * 10 + 5;
+            coin.style.width = size + 'px';
+            coin.style.height = size + 'px';
+            
+            // Random animation duration
+            coin.style.animationDuration = Math.random() * 3 + 3 + 's';
+            
+            document.body.appendChild(coin);
+            
+            // Remove coin after animation completes
+            setTimeout(() => {
+                coin.remove();
+            }, 5000);
+        }
+        
+        // Create initial coins
+        for (let i = 0; i < 20; i++) {
+            createMoonCoins();
+        }
+        
+        // Keep creating coins periodically
+        setInterval(createMoonCoins, 300);
+        
+        // Simple transfer function
+        document.querySelector('.transfer-btn').addEventListener('click', () => {
+            const recipient = document.getElementById('recipient').value;
+            const amount = document.getElementById('amount').value;
+            
+            if (!recipient || !amount) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            alert(`Transferring ${amount} MC to ${recipient}`);
+            document.getElementById('recipient').value = '';
+            document.getElementById('amount').value = '';
+        });
+    </script>
+</body>
+</html>
